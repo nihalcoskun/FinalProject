@@ -1,18 +1,21 @@
 ﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using System;
 
 namespace ConsoleUI
 {
+    //SOLID 
+    /* Open Close principle (yeni özellik ekliyorsan mevcuttaki
+    hiçbir koduna dokunamazsın) */
     class Program
     {
-        private static object product;
 
         static void Main(string[] args)
         {
-            ProductManager productManager = new ProductManager(new InMemoryProductDal());
+            ProductManager productManager = new ProductManager(new EfProductDal());
 
-            foreach (var product in productManager.GetAll())
+            foreach (var product in productManager.GetByUnitPrice(50,100))
             {
                 Console.WriteLine(product.ProductName);
             }
